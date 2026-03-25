@@ -1,5 +1,7 @@
 package ru.yandex.practicum.delivery;
 
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -44,9 +46,54 @@ public class DeliveryApp {
 
     // реализуйте методы ниже
 
+
     private static void addParcel() {
-        // Подсказка: спросите тип посылки и необходимые поля, создайте объект и добавьте в allParcels
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Введите тип посылки:\n1 — стандартная\n2 — хрупкая\n3 — скоропортящаяся");
+        int type = scanner.nextInt();
+
+        System.out.println("Введите описание посылки:");
+        String description = scanner.nextLine();
+
+        System.out.println("Введите вес посылки (кг):");
+        int weight = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("Введите адрес доставки:");
+        String deliveryAddress = scanner.nextLine();
+
+        System.out.println("Введите день отправки:");
+        int sendDay = scanner.nextInt();
+        scanner.nextLine();
+
+        switch (type) {
+            case 1:
+                StandardParcel standardParcel = new StandardParcel(description, weight, deliveryAddress, sendDay);
+                allParcels.add(standardParcel);
+                standardParcel.packageItem();
+                break;
+
+            case 2:
+                FragileParcel fragileParcel = new FragileParcel(description, weight, deliveryAddress, sendDay);
+                allParcels.add(fragileParcel);
+                fragileParcel.packageItem();
+                break;
+
+            case 3:
+                System.out.println("Введите срок годности (в днях):");
+                int timeToLive = scanner.nextInt();
+                scanner.nextLine();
+                PerishableParcel perishableParcel = new PerishableParcel(description, weight, deliveryAddress, sendDay, timeToLive);
+                allParcels.add(perishableParcel);
+                perishableParcel.packageItem();
+                break;
+
+            default:
+                System.out.println("Неизвестный тип посылки");
+        }
     }
+
 
     private static void sendParcels() {
         // Пройти по allParcels, вызвать packageItem() и deliver()
