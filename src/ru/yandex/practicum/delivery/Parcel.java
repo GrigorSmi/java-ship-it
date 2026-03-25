@@ -25,7 +25,11 @@ public abstract class Parcel {
     protected abstract int getBaseCost();
 
 
-    public double calculateDeliveryCost(int weight) {
+    public double calculateDeliveryCost() {
         return weight * getBaseCost();
+    }
+
+    public int getWeight() {
+        return weight;
     }
 }
