@@ -24,7 +24,8 @@ public class PerishableParcel extends Parcel {
         return BASE_COST;
     }
 
-    private boolean isExpired(int currentDay) {
+    public boolean isExpired(int currentDay) {
         return (sendDay + timeToLive) < currentDay;
     }
+
 }
