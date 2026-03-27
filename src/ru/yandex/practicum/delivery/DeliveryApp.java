@@ -57,7 +57,6 @@ public class DeliveryApp {
 
 
     private static void addParcel() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Введите тип посылки:\n1 — стандартная\n2 — хрупкая\n3 — скоропортящаяся");
         int type = scanner.nextInt();
@@ -80,14 +79,14 @@ public class DeliveryApp {
         switch (type) {
             case 1:
                 StandardParcel standardParcel = new StandardParcel(description, weight, deliveryAddress, sendDay);
-                if (standartParcels.addParcel(standardParcel) == true) {
+                if (standartParcels.addParcel(standardParcel)) {
                     allParcels.add(standardParcel);
                 }
                 break;
 
             case 2:
                 FragileParcel fragileParcel = new FragileParcel(description, weight, deliveryAddress, sendDay);
-                if (fragileParcels.addParcel(fragileParcel) == true) {
+                if (fragileParcels.addParcel(fragileParcel)) {
                     allParcels.add(fragileParcel);
                     trackableParcels.add(fragileParcel);
                 }
@@ -130,10 +129,9 @@ public class DeliveryApp {
             System.out.println("Нет посылок с поддержкой трекинга");
             return;
         }
-
+        System.out.println("Введите новое местоположение");
+        String newLocation = scanner.nextLine();
         for (Trackable parcel : trackableParcels) {
-            System.out.println("Введите новое местоположение для " + parcel.getDescription());
-            String newLocation = scanner.nextLine();
             parcel.reportStatus(newLocation);
         }
     }
